@@ -6,6 +6,7 @@ __pycache__/
 # kivy
 .kivy
 kivy_log.txt
+resources_log.txt
 
 # C extensions
 *.so
