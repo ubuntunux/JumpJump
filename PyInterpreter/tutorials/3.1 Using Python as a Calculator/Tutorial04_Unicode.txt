@@ -1,0 +1,48 @@
+3.1.4 Unicode Strings
+
+Starting with Python 2.0 a new data type for storing text data is available to the programmer: the Unicode object. It can be used to store and manipulate Unicode data (see http://www.unicode.org/) and integrates well with the existing string objects, providing auto-conversions where necessary.
+Unicode has the advantage of providing one ordinal for every character in every script used in modern and ancient texts. Previously, there were only 256 possible ordinals for script characters. Texts were typically bound to a code page which mapped the ordinals to script characters. This lead to very much confusion especially with respect to internationalization (usually written as i18n — 'i' + 18 characters + 'n') of software. Unicode solves these problems by defining one code page for all scripts.
+Creating Unicode strings in Python is just as simple as creating normal strings:
+[code]
+>>> u'Hello World !'
+u'Hello World !'
+[/code]
+The small 'u' in front of the quote indicates that a Unicode string is supposed to be created. If you want to include special characters in the string, you can do so by using the Python Unicode-Escape encoding. The following example shows how:
+[code]
+>>> u'Hello\u0020World !'
+u'Hello World !'
+[/code]
+The escape sequence \u0020 indicates to insert the Unicode character with the ordinal value 0x0020 (the space character) at the given position.
+Other characters are interpreted by using their respective ordinal values directly as Unicode ordinals. If you have literal strings in the standard Latin-1 encoding that is used in many Western countries, you will find it convenient that the lower 256 characters of Unicode are the same as the 256 characters of Latin-1.
+For experts, there is also a raw mode just like the one for normal strings. You have to prefix the opening quote with ‘ur’ to have Python use the Raw-Unicode-Escape encoding. It will only apply the above \uXXXX conversion if there is an uneven number of backslashes in front of the small ‘u’.
+[code]
+>>> ur'Hello\u0020World !'
+u'Hello World !'
+>>> ur'Hello\\u0020World !'
+u'Hello\\\\u0020World !'
+[/code]
+The raw mode is most useful when you have to enter lots of backslashes, as can be necessary in regular expressions.
+Apart from these standard encodings, Python provides a whole set of other ways of creating Unicode strings on the basis of a known encoding.
+The built-in function unicode() provides access to all registered Unicode codecs (COders and DECoders). Some of the more well known encodings which these codecs can convert are Latin-1, ASCII, UTF-8, and UTF-16. The latter two are variable-length encodings that store each Unicode character in one or more bytes. The default encoding is normally set to ASCII, which passes through characters in the range 0 to 127 and rejects any other characters with an error. When a Unicode string is printed, written to a file, or converted with str(), conversion takes place using this default encoding.
+[code]
+>>> u"abc"
+u'abc'
+>>> str(u"abc")
+'abc'
+>>> u"äöü"
+u'\xe4\xf6\xfc'
+>>> str(u"äöü")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in ?
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-2: ordinal not in range(128)
+[/code]
+To convert a Unicode string into an 8-bit string using a specific encoding, Unicode objects provide an encode() method that takes one argument, the name of the encoding. Lowercase names for encodings are preferred.
+[code]
+>>> u"äöü".encode('utf-8')
+'\xc3\xa4\xc3\xb6\xc3\xbc'
+[/code]
+If you have data in a specific encoding and want to produce a corresponding Unicode string from it, you can use the unicode() function with the encoding name as the second argument.
+[code]
+>>> unicode('\xc3\xa4\xc3\xb6\xc3\xbc', 'utf-8')
+u'\xe4\xf6\xfc'
+[/code]

@@ -1,0 +1,5 @@
+[u'image', u'width', u'height', u'enemyCount', u'scale']
+['Image', 'Float', 'Float', 'Int', 'Float']
+['bg01', 2.0, 2.0, 5, 1.0]
+['bg01', 1.0, 1.0, 2, 1.0]
+['bg01', 1.0, 1.0, 3, 1.0]

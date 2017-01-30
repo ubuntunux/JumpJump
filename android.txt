@@ -1,0 +1,3 @@
+title=JumpJump
+author=EnuriSoft
+orientation=landscape

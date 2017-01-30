@@ -1,0 +1,4 @@
+[u'damage', u'image', u'range']
+['Float', 'Image', 'Float']
+[1.0, 'default_image', 100.0]
+[1.0, 'default_image', 100.0]
